@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void direccionaPantalla(){
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, MainDrawerActivity.class));
         finish();
     }
 }
