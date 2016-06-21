@@ -357,6 +357,9 @@ public class MapsRutasActivity extends AppCompatActivity implements OnMapReadyCa
 
                 switch (cont){
                     case 1:
+                        System.out.println("DEntro del CASE "+cont);
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(0).latitude, points.get(0).longitude)).title("Inicia").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop)));
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(points.get(points.size()-1).latitude, points.get(points.size()-1).longitude)).title("Termina").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop)));
                         Polyline line = mMap.addPolyline(new PolylineOptions()
                                 .addAll(points)
                                 //.add(new LatLng(20.9893276, -86.8316037), new LatLng(21.0254455, -86.8588391))
@@ -379,11 +382,12 @@ public class MapsRutasActivity extends AppCompatActivity implements OnMapReadyCa
                         break;
                 }
 
+                /*
                 Polyline line = mMap.addPolyline(new PolylineOptions()
                         .addAll(points)
                         //.add(new LatLng(20.9893276, -86.8316037), new LatLng(21.0254455, -86.8588391))
                         .width(5)
-                        .color(Color.RED));
+                        .color(Color.RED)); */
 
 
                 // Adding all the points in the route to LineOptions
