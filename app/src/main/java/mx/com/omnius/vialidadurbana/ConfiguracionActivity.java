@@ -19,6 +19,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -39,14 +40,26 @@ public class ConfiguracionActivity extends AppCompatPreferenceActivity {
 
     private static void bindPreferenceSummaryToValue(Preference preference) {
         // Set the listener to watch for value changes.
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+        preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                boolean stringValue = (Boolean) newValue;
+                Log.d("Dentro de Preferences", ""+stringValue);
 
-        // Trigger the listener immediately with the preference's
-        // current value.
-        /*sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));*/
+                    if (stringValue){
+                        preference.setSummary("Habilitado");
+                    }else{
+                        preference.setSummary("Deshabilitado");
+                    }
+
+
+
+
+                return true;
+            }
+        });
+
+
     }
 
     @Override
@@ -68,8 +81,13 @@ public class ConfiguracionActivity extends AppCompatPreferenceActivity {
         }
     }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     protected boolean isValidFragment(String fragmentName) {
         return GeneralPreferenceFragment.class.getName().equals(fragmentName);
@@ -85,18 +103,7 @@ public class ConfiguracionActivity extends AppCompatPreferenceActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-            setHasOptionsMenu(true);
             bindPreferenceSummaryToValue(findPreference("inicio_sesion"));
-        }
-
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == android.R.id.home) {
-                startActivity(new Intent(getActivity(), ConfiguracionActivity.class));
-                return true;
-            }
-            return super.onOptionsItemSelected(item);
         }
     }
 
