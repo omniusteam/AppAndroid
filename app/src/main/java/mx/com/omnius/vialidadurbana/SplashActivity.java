@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,6 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
     ImageView splash;
     private View mProgressView;
+    int conta = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onResultadoObtenido(RutasArrayList result) {
                 guardaRutas(result);
-                showProgress(false);
-                direccionaPantalla();
+                //showProgress(false);
+                //direccionaPantalla();
+                cargaRutasByCamion();
             }
 
             @Override
@@ -99,6 +102,52 @@ public class SplashActivity extends AppCompatActivity {
         wsParadas.execute("rutas/");
     }
 
+    public void cargaRutasByCamion(){
+        for (conta = 0; conta<3; conta++){
+            consumeWSRuta(conta);
+        }
+    }
+
+    public void consumeWSRuta(final int pos){
+        ConsumoWSGenericoAsyncTask<ParadasArrayList> wsParadas = new ConsumoWSGenericoAsyncTask<>(new ParadasArrayList(), null);
+        wsParadas.setEventosWSListener(new EventosWSListener<ParadasArrayList>() {
+            @Override
+            public void onResultadoObtenido(ParadasArrayList result) {
+                switch (pos){
+                    case 0:
+                        Constante.auxParadaUno = result;
+                        break;
+                    case 1:
+                        Constante.auxParadaDos = result;
+                        break;
+                    case 2:
+                        Constante.auxParadaTres = result;
+                        break;
+                }
+
+                if (pos == 2){
+                    Log.d("Entro", "Quita");
+                    showProgress(false);
+                    direccionaPantalla();
+                }
+            }
+
+            @Override
+            public void onTiempoExpiradoConexion() {
+                showProgress(false);
+                Toast.makeText(SplashActivity.this, "Tiempo expirado, Favor de intertarlo más tarde", Toast.LENGTH_LONG).show();
+                finish();
+            }
+
+            @Override
+            public void onError(String message) {
+                showProgress(false);
+                Toast.makeText(SplashActivity.this, "Error, Favor de intertarlo más tarde", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        wsParadas.execute("paradas/ByIdruta/"+(pos+1));
+    }
 
     public void direccionaPantalla(){
         startActivity(new Intent(this, MainDrawerActivity.class));

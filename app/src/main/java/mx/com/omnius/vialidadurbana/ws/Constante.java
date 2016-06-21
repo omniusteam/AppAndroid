@@ -21,4 +21,8 @@ public class Constante {
 	public static ArrayList<Paradas> auxParadas = null;
 	public static ArrayList<Rutas> auxRutas = null;
 
+	public static ArrayList<Paradas> auxParadaUno = null;
+	public static ArrayList<Paradas> auxParadaDos = null;
+	public static ArrayList<Paradas> auxParadaTres = null;
+
 }
