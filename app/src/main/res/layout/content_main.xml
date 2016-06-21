@@ -6,17 +6,84 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".UbicacionActivity"
+    android:background="@color/amber_300"
     tools:showIn="@layout/activity_ubicacion">
 
 
+    <ImageView
+        android:id="@+id/imgHelp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/fame"/>
+
     <TextView
+        android:id="@+id/textoinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Prueba"
-        android:id="@+id/textViewPrueba"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/secondary_text"
+        android:textStyle="italic"
+        android:layout_below="@+id/imgHelp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="Ayudanos a mejorar el servicio, dinos en que parada te encuentras para proporcionarte una ruta eficiente"/>
 
+    <RadioGroup
+        android:id="@+id/radiogrupopos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textoinfo"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <RadioButton
+            android:id="@+id/rbParada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parada de autobús"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:layout_marginRight="10dp"/>
+
+        <RadioButton
+            android:id="@+id/rbUbicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="Mi ubicación"/>
+
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/comboParada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/radiogrupopos"
+        android:layout_marginTop="25dp"></Spinner>
+
+    <Spinner
+        android:id="@+id/comboRuta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/comboParada"
+        android:layout_marginTop="35dp"></Spinner>
+
+    <Button
+        android:id="@+id/enviaInfoUsu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Enviar"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/comboRuta"/>
 
 </RelativeLayout>

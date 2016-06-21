@@ -10,8 +10,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+
+import mx.com.omnius.vialidadurbana.pojos.Paradas;
+import mx.com.omnius.vialidadurbana.pojos.ParadasArrayList;
+import mx.com.omnius.vialidadurbana.ws.Constante;
 
 public class MapsParadasActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -51,9 +59,20 @@ public class MapsParadasActivity extends AppCompatActivity implements OnMapReady
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng pos = new LatLng(20.9893276, -86.8316037);
-        mMap.addMarker(new MarkerOptions().position(pos).title("Tu posición actual"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,15));
+        LatLng pos = new LatLng(Constante.latitud, Constante.longitud);
+        //mMap.addMarker(new MarkerOptions().position(pos).title("Tu posición actual"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pos,14));
+        cargaParadas();
+    }
+
+    public void cargaParadas(){
+        ArrayList<Paradas> paradaAux = Constante.auxParadas;
+        if (paradaAux != null){
+            for (int i=0; i<paradaAux.size(); i++){
+                LatLng ltaux = new LatLng(paradaAux.get(i).getLatitud(), paradaAux.get(i).getLongitud());
+                mMap.addMarker(new MarkerOptions().position(ltaux).title(paradaAux.get(i).getNombre()).icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop)));
+            }
+        }
     }
 
     @Override

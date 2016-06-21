@@ -55,4 +55,9 @@ public class Rutas{
     public void setIdempresatransporte(BigDecimal idempresatransporte) {
         this.idempresatransporte = idempresatransporte;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

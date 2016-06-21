@@ -66,4 +66,10 @@ public class Paradas {
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
+
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
