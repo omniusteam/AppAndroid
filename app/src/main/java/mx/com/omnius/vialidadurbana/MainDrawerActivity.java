@@ -1,5 +1,8 @@
 package mx.com.omnius.vialidadurbana;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,7 +75,7 @@ public class MainDrawerActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -84,17 +87,15 @@ public class MainDrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_posicion) {
+            startActivity(new Intent(this, UbicacionActivity.class));
+        } else if (id == R.id.nav_paradas) {
+            startActivity(new Intent(this, MapsParadasActivity.class));
+        } else if (id == R.id.nav_rutas) {
+            startActivity(new Intent(this, MapsRutasActivity.class));
+        } else if (id == R.id.nav_config) {
 
         }
 
@@ -146,5 +147,13 @@ public class MainDrawerActivity extends AppCompatActivity
     protected void onStop() {
         sliderAuto.stopAutoCycle();
         super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        if (sliderAuto!=null){
+            sliderAuto.startAutoCycle();
+        }
+        super.onRestart();
     }
 }
