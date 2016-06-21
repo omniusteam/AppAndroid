@@ -96,7 +96,7 @@ public class MainDrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_rutas) {
             startActivity(new Intent(this, MapsRutasActivity.class));
         } else if (id == R.id.nav_config) {
-
+            startActivity(new Intent(this, ConfiguracionActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

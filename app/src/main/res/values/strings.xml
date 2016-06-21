@@ -14,9 +14,8 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
+    <string name="pref_title_inicio_sesion">Inicio de sesión</string>
+    <string name="pref_description_inicio_sesion">Habilitar el inicio de sesión obligatorio para entrar a la aplicación
     </string>
 
     <string name="pref_title_display_name">Display name</string>
