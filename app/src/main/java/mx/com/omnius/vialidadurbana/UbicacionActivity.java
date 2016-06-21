@@ -6,8 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import mx.com.omnius.vialidadurbana.pojos.Usuarios;
+import mx.com.omnius.vialidadurbana.pojos.UsuariosArrayList;
+import mx.com.omnius.vialidadurbana.ws.ConsumoWSGenericoAsyncTask;
+import mx.com.omnius.vialidadurbana.ws.EventosWSListener;
 
 public class UbicacionActivity extends AppCompatActivity {
+
+    TextView prueba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +31,9 @@ public class UbicacionActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+        prueba = (TextView) findViewById(R.id.textViewPrueba);
 
-       
+       pruebaConsumo();
     }
 
     private void setupActionBar() {
@@ -49,6 +59,25 @@ public class UbicacionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void pruebaConsumo(){
+        ConsumoWSGenericoAsyncTask<UsuariosArrayList> wsUsu = new ConsumoWSGenericoAsyncTask<>(new UsuariosArrayList(), null);
+        wsUsu.setEventosWSListener(new EventosWSListener<UsuariosArrayList>() {
+            @Override
+            public void onResultadoObtenido(UsuariosArrayList result) {
+                prueba.setText(""+result.get(0).getIdusuario());
+            }
 
+            @Override
+            public void onTiempoExpiradoConexion() {
+                Toast.makeText(UbicacionActivity.this, "Expirado", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(UbicacionActivity.this, "Error "+message, Toast.LENGTH_LONG).show();
+            }
+        });
+        wsUsu.execute("usuarios/");
+    }
 
 }
